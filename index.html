@@ -4,91 +4,112 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>AI Visual Critic</title>
-  <meta name="description" content="AI Visual Critic — 큐레이션·비평·프로모션을 하나의 파이프라인으로 묶는 영상/미학 엔진." />
+  <meta name="description" content="AI Visual Critic — 큐레이션·비평·프로모션을 하나의 미학 엔진으로." />
   <style>
     :root { --fg:#0b0b0f; --muted:#6b7280; --bg:#ffffff; --card:#f6f7fb; --line:#e5e7eb; }
     *{box-sizing:border-box}
     body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,Arial,sans-serif;color:var(--fg);background:var(--bg)}
     a{color:inherit;text-decoration:none}
     .wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
-    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0 22px}
+    .top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:6px 0 22px}
     .brand{font-weight:800;letter-spacing:-.02em}
-    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-size:13px;color:var(--muted)}
+    .right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-size:13px;color:var(--muted);white-space:nowrap}
+    .lang{display:flex;gap:8px;flex-wrap:wrap}
+    .lbtn{border:1px solid var(--line);background:#fff;padding:8px 10px;border-radius:12px;font-weight:800;font-size:12px;color:var(--muted);cursor:pointer}
+    .lbtn.active{background:var(--fg);border-color:var(--fg);color:#fff}
     .hero{padding:34px 0 18px}
     h1{font-size:42px;line-height:1.08;margin:0 0 10px;letter-spacing:-.03em}
-    .tagline{font-size:17px;line-height:1.6;color:var(--muted);max-width:720px;margin:0 0 18px}
+    .tagline{font-size:17px;line-height:1.6;color:var(--muted);max-width:760px;margin:0 0 18px}
     .btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
-    .btn{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:12px;font-weight:600;font-size:14px}
+    .btn{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:12px;font-weight:800;font-size:14px}
     .btn.primary{background:var(--fg);color:#fff;border-color:var(--fg)}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px 0 10px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
-    .k{font-weight:800;margin:0 0 6px}
+    .k{font-weight:900;margin:0 0 6px}
     .d{margin:0;color:var(--muted);line-height:1.6;font-size:14px}
     .section{margin:26px 0 0;padding-top:18px;border-top:1px solid var(--line)}
     .h2{font-size:18px;margin:0 0 10px;letter-spacing:-.02em}
     .bul{margin:0;padding-left:16px;color:var(--muted);line-height:1.7}
     .demo{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;justify-content:space-between}
-    .note{color:var(--muted);line-height:1.7;margin:0}
+    .note{color:var(--muted);line-height:1.7;margin:0;max-width:620px}
     .footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;color:var(--muted);font-size:13px}
     .links{display:flex;gap:14px;flex-wrap:wrap}
-    @media (max-width:860px){ .grid{grid-template-columns:1fr} h1{font-size:34px} }
+    @media (max-width:860px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:34px}
+      .top{align-items:flex-start}
+      .right{justify-content:flex-start}
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="top">
       <div class="brand">AI Visual Critic</div>
-      <div class="pill">Status: <b style="color:#111">Building</b> · aivisualcritic.com</div>
+
+      <div class="right">
+        <div class="lang" role="tablist" aria-label="Language selector">
+          <button class="lbtn" id="btn-ko" data-lang="ko" role="tab">KO</button>
+          <button class="lbtn" id="btn-en" data-lang="en" role="tab">EN</button>
+          <button class="lbtn" id="btn-fr" data-lang="fr" role="tab">FR</button>
+        </div>
+        <div class="pill" id="statusPill">Status: <b style="color:#111">Building</b> · aivisualcritic.com</div>
+      </div>
     </div>
 
+    <!-- HERO -->
     <div class="hero">
-      <h1>큐레이션·비평·프로모션을<br/>하나의 미학 엔진으로.</h1>
-      <p class="tagline">
-        AI Visual Critic은 영상/이미지의 감각적 밀도와 메시지 구조를 분석해
-        “왜 좋은가 / 무엇을 강화해야 하는가”를 짧고 명확한 언어로 제안합니다.
-        (현재 프리뷰 버전 구축 중)
+      <h1 id="heroTitle">큐레이션·비평·프로모션을<br/>하나의 미학 엔진으로.</h1>
+      <p class="tagline" id="heroDesc">
+        AI Visual Critic은 영상/이미지의 감각적 밀도와 메시지 구조를 분석해 “왜 좋은가 / 무엇을 강화해야 하는가”를 짧고 명확한 언어로 제안합니다. (현재 프리뷰 버전 구축 중)
       </p>
 
       <div class="btns">
-        <a class="btn primary" href="#" onclick="alert('준비 중입니다.');return false;">영상 추천 받기</a>
-        <a class="btn" href="#" onclick="alert('소개서 링크를 붙여넣으면 됩니다.');return false;">프로젝트 소개서(PDF)</a>
+        <a class="btn primary" href="#" id="btnDemo">영상 추천 받기</a>
+        <a class="btn" href="#" id="btnPdf">프로젝트 소개서(PDF)</a>
       </div>
     </div>
 
+    <!-- 3 CARDS -->
     <div class="grid">
       <div class="card">
-        <p class="k">Curate</p>
-        <p class="d">당신의 취향·의도·플랫폼 맥락에 맞춰 “봐야 할 것”을 고릅니다.</p>
+        <p class="k" id="c1Title">Curate</p>
+        <p class="d" id="c1Desc">당신의 취향·의도·플랫폼 맥락에 맞춰 “봐야 할 것”을 고릅니다.</p>
       </div>
       <div class="card">
-        <p class="k">Critique</p>
-        <p class="d">장면의 리듬, 시선의 동선, 상징의 밀도를 짧은 코멘트로 구조화합니다.</p>
+        <p class="k" id="c2Title">Critique</p>
+        <p class="d" id="c2Desc">장면의 리듬, 시선의 동선, 상징의 밀도를 짧은 코멘트로 구조화합니다.</p>
       </div>
       <div class="card">
-        <p class="k">Promote</p>
-        <p class="d">홍보 문구·썸네일·쇼츠 구성까지, 전달력을 높이는 제안을 연결합니다.</p>
+        <p class="k" id="c3Title">Promote</p>
+        <p class="d" id="c3Desc">홍보 문구·썸네일·쇼츠 구성까지, 전달력을 높이는 제안을 연결합니다.</p>
       </div>
     </div>
 
+    <!-- WHY IT MATTERS -->
     <div class="section">
-      <p class="h2">Why it matters</p>
+      <p class="h2" id="whyTitle">Why it matters</p>
       <ul class="bul">
-        <li>“현존(Presence)”보다 “시뮬레이션(Simulation)”이 더 신뢰받는 시대, 감각의 기준을 다시 설계합니다.</li>
-        <li>데이터가 아니라 ‘미학적 판단’의 언어로, 창작자에게 실행 가능한 선택지를 제공합니다.</li>
+        <li id="why1">“현존(Presence)”보다 “시뮬레이션(Simulation)”이 더 신뢰받는 시대, 감각의 기준을 다시 설계합니다.</li>
+        <li id="why2">데이터가 아니라 ‘미학적 판단’의 언어로, 창작자에게 실행 가능한 선택지를 제공합니다.</li>
       </ul>
     </div>
 
+    <!-- DEMO / CONTACT -->
     <div class="section demo">
       <div>
-        <p class="h2">Demo / Coming Soon</p>
-        <p class="note">
+        <p class="h2" id="demoTitle">Demo / Coming Soon</p>
+        <p class="note" id="demoDesc">
           현재 구축중입니다.<br/>
           다음 업데이트: 추천 버튼(간이 폼) + 샘플 코멘트 3종 + 프로젝트 개요 페이지.
         </p>
       </div>
       <div class="card" style="min-width:260px;max-width:360px;flex:1">
-        <p class="k">Contact</p>
-        <p class="d">협업/문의: <a href="mailto:info@simeunlog.com">info@simeunlog.com</a></p>
+        <p class="k" id="contactTitle">Contact</p>
+        <p class="d" id="contactLine">
+          협업/문의: <a href="mailto:aivisualcritic@gmail.com">aivisualcritic@gmail.com</a>
+        </p>
         <p class="d" style="margin-top:10px">© <span id="y"></span> AI Visual Critic</p>
       </div>
     </div>
@@ -96,15 +117,156 @@
     <div class="footer">
       <div>Built with GitHub + Vercel</div>
       <div class="links">
-        <a href="#" onclick="alert('링크를 넣어주세요.');return false;">Instagram</a>
-        <a href="#" onclick="alert('링크를 넣어주세요.');return false;">YouTube</a>
-        <a href="#" onclick="alert('링크를 넣어주세요.');return false;">Press</a>
+        <a href="#" id="linkIg">Instagram</a>
+        <a href="#" id="linkYt">YouTube</a>
+        <a href="#" id="linkPress">Press</a>
       </div>
     </div>
   </div>
 
   <script>
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Alert buttons (as requested)
+    function comingSoon(msg){
+      alert(msg);
+    }
+
+    // Wire buttons
+    document.getElementById('btnDemo').addEventListener('click', function(e){
+      e.preventDefault();
+      comingSoon(currentLang === 'ko' ? '준비 중입니다.' :
+                 currentLang === 'fr' ? 'Bientôt disponible.' : 'Coming soon.');
+    });
+    document.getElementById('btnPdf').addEventListener('click', function(e){
+      e.preventDefault();
+      comingSoon(currentLang === 'ko' ? '소개서 링크를 붙여넣으면 됩니다.' :
+                 currentLang === 'fr' ? 'Ajoutez ici le lien du PDF.' : 'Attach your PDF link here.');
+    });
+    document.getElementById('linkIg').addEventListener('click', function(e){ e.preventDefault(); comingSoon(currentLang==='ko'?'링크를 넣어주세요.':(currentLang==='fr'?'Ajoutez le lien.':'Add your link.')); });
+    document.getElementById('linkYt').addEventListener('click', function(e){ e.preventDefault(); comingSoon(currentLang==='ko'?'링크를 넣어주세요.':(currentLang==='fr'?'Ajoutez le lien.':'Add your link.')); });
+    document.getElementById('linkPress').addEventListener('click', function(e){ e.preventDefault(); comingSoon(currentLang==='ko'?'링크를 넣어주세요.':(currentLang==='fr'?'Ajoutez le lien.':'Add your link.')); });
+
+    // Translations
+    const T = {
+      ko: {
+        heroTitle: "큐레이션·비평·프로모션을<br/>하나의 미학 엔진으로.",
+        heroDesc: "AI Visual Critic은 영상/이미지의 감각적 밀도와 메시지 구조를 분석해 “왜 좋은가 / 무엇을 강화해야 하는가”를 짧고 명확한 언어로 제안합니다. (현재 프리뷰 버전 구축 중)",
+        btnDemo: "영상 추천 받기",
+        btnPdf: "프로젝트 소개서(PDF)",
+        c1Title: "Curate",
+        c1Desc: "당신의 취향·의도·플랫폼 맥락에 맞춰 “봐야 할 것”을 고릅니다.",
+        c2Title: "Critique",
+        c2Desc: "장면의 리듬, 시선의 동선, 상징의 밀도를 짧은 코멘트로 구조화합니다.",
+        c3Title: "Promote",
+        c3Desc: "홍보 문구·썸네일·쇼츠 구성까지, 전달력을 높이는 제안을 연결합니다.",
+        whyTitle: "Why it matters",
+        why1: "“현존(Presence)”보다 “시뮬레이션(Simulation)”이 더 신뢰받는 시대, 감각의 기준을 다시 설계합니다.",
+        why2: "데이터가 아니라 ‘미학적 판단’의 언어로, 창작자에게 실행 가능한 선택지를 제공합니다.",
+        demoTitle: "Demo / Coming Soon",
+        demoDesc: "현재 구축중입니다.<br/>다음 업데이트: 추천 버튼(간이 폼) + 샘플 코멘트 3종 + 프로젝트 개요 페이지.",
+        contactTitle: "Contact",
+        contactLine: '협업/문의: <a href="mailto:aivisualcritic@gmail.com">aivisualcritic@gmail.com</a>'
+      },
+      en: {
+        heroTitle: "Curate · Critique · Promote<br/>as one aesthetic engine.",
+        heroDesc: "AI Visual Critic analyzes the sensory density and message structure of images to propose—clearly and concisely—why it works and what should be strengthened. (Preview build in progress)",
+        btnDemo: "Get Recommendations",
+        btnPdf: "Project PDF",
+        c1Title: "Curate",
+        c1Desc: "Selects what to watch based on intent, platform context, and audience conditions.",
+        c2Title: "Critique",
+        c2Desc: "Structures rhythm, attention flow, and symbolic density into concise, usable notes.",
+        c3Title: "Promote",
+        c3Desc: "Connects critique to communication: copy, thumbnails, and short-form structure.",
+        whyTitle: "Why it matters",
+        why1: "In an era where simulation is trusted more than presence, we redesign criteria of sensibility.",
+        why2: "Not data—critical language: actionable options for creators.",
+        demoTitle: "Demo / Coming Soon",
+        demoDesc: "Currently under construction.<br/>Next: lightweight form + three sample critiques + project overview page.",
+        contactTitle: "Contact",
+        contactLine: 'Inquiries: <a href="mailto:aivisualcritic@gmail.com">aivisualcritic@gmail.com</a>'
+      },
+      fr: {
+        heroTitle: "Curater · Critiquer · Promouvoir<br/>comme un seul moteur esthétique.",
+        heroDesc: "AI Visual Critic analyse la densité sensible et la structure du message pour formuler, avec concision et clarté, pourquoi cela fonctionne et ce qui doit être renforcé. (Prévisualisation en cours)",
+        btnDemo: "Recevoir des recommandations",
+        btnPdf: "PDF du projet",
+        c1Title: "Curate",
+        c1Desc: "Sélectionne ce qu’il faut voir selon l’intention, le contexte de plateforme et l’audience.",
+        c2Title: "Critique",
+        c2Desc: "Structure le rythme, la trajectoire du regard et la densité symbolique en notes brèves et opératoires.",
+        c3Title: "Promote",
+        c3Desc: "Relie la critique à la diffusion : texte, vignette, formats courts.",
+        whyTitle: "Pourquoi cela compte",
+        why1: "À l’époque où la simulation inspire plus de confiance que la présence, nous redessinons les critères du sensible.",
+        why2: "Non pas des données, mais un langage critique : des options opératoires pour les créateurs.",
+        demoTitle: "Démo / Bientôt",
+        demoDesc: "En cours de construction.<br/>Prochainement : formulaire léger + trois critiques exemples + page de présentation.",
+        contactTitle: "Contact",
+        contactLine: 'Contact : <a href="mailto:aivisualcritic@gmail.com">aivisualcritic@gmail.com</a>'
+      }
+    };
+
+    const keys = [
+      "heroTitle","heroDesc","btnDemo","btnPdf",
+      "c1Title","c1Desc","c2Title","c2Desc","c3Title","c3Desc",
+      "whyTitle","why1","why2",
+      "demoTitle","demoDesc",
+      "contactTitle","contactLine"
+    ];
+
+    let currentLang = "ko";
+
+    function setLang(lang){
+      if(!T[lang]) lang = "ko";
+      currentLang = lang;
+
+      // toggle buttons
+      document.querySelectorAll('.lbtn').forEach(b => {
+        const on = b.dataset.lang === lang;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+
+      // apply translations
+      const dict = T[lang];
+      keys.forEach(k => {
+        const el = document.getElementById(k);
+        if(!el) return;
+        if(k === "contactLine"){
+          el.innerHTML = dict[k];
+        } else {
+          el.innerHTML = dict[k];
+        }
+      });
+
+      // set html lang
+      document.documentElement.lang = lang;
+
+      // persist
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', lang);
+      window.history.replaceState({}, '', url.toString());
+      localStorage.setItem('lang', lang);
+    }
+
+    // wire language buttons
+    document.querySelectorAll('.lbtn').forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.lang));
+    });
+
+    // init language: url > storage > browser
+    const urlLang = new URL(window.location.href).searchParams.get('lang');
+    const stored = localStorage.getItem('lang');
+    const nav = (navigator.language || 'ko').toLowerCase();
+    const browser = nav.startsWith('fr') ? 'fr' : (nav.startsWith('en') ? 'en' : 'ko');
+    const init = (urlLang === 'ko' || urlLang === 'en' || urlLang === 'fr') ? urlLang
+               : (stored === 'ko' || stored === 'en' || stored === 'fr') ? stored
+               : browser;
+
+    setLang(init);
   </script>
 </body>
 </html>
