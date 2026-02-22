@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Visual Critic</title>
+<meta name="description" content="AI Visual Critic — 미학적 판단을 실행 가능한 언어로 전환하다.">
+
+<style>
+:root { --fg:#0b0b0f; --muted:#6b7280; --bg:#ffffff; --card:#f6f7fb; --line:#e5e7eb; }
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,Arial,sans-serif;color:var(--fg);background:var(--bg)}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.brand{font-weight:800;font-size:20px}
+.lang{display:flex;gap:8px}
+.lbtn{border:1px solid var(--line);padding:6px 10px;border-radius:10px;font-weight:700;font-size:13px;background:#fff;cursor:pointer}
+.lbtn.active{background:var(--fg);color:#fff;border-color:var(--fg)}
+.hero{margin-top:30px}
+h1{font-size:34px;line-height:1.2;margin-bottom:14px}
+.tagline{color:var(--muted);line-height:1.8;font-size:15px}
+.section{margin-top:30px}
+.card{background:var(--card);padding:14px;border-radius:14px;margin-top:10px}
+.footer{margin-top:40px;font-size:13px;color:var(--muted)}
+.panel{display:none}
+.panel.active{display:block}
+@media (max-width:768px){h1{font-size:26px}}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<div class="top">
+<div class="brand">AI Visual Critic</div>
+<div class="lang">
+<button class="lbtn" data-lang="ko">KO</button>
+<button class="lbtn" data-lang="en">EN</button>
+<button class="lbtn" data-lang="fr">FR</button>
+</div>
+</div>
+
+<!-- ================== 한국어 ================== -->
+<div class="panel" id="ko">
+<div class="hero">
+<h1>미학적 판단을 실행 가능한 언어로 전환하다</h1>
+<p class="tagline">
+AI Visual Critic은 영상과 이미지의 리듬, 시선의 동선, 상징의 밀도, 맥락 구조를 분석하여
+무엇이 작동하는지, 무엇을 수정해야 하는지를 명료한 문장으로 제안합니다.
+<br><br>
+현존(Presence)보다 시뮬레이션(Simulation)이 더 신뢰받는 시대,
+이 프로젝트는 감각의 기준을 다시 설계하는 비평적 장치입니다.
+<br><br>
+현재 구축중입니다.
+</p>
+</div>
+
+<div class="section">
+<div class="card">
+<strong>Contact</strong><br>
+<a href="mailto:aivisualcritic@gmail.com">aivisualcritic@gmail.com</a>
+</div>
+</div>
+</div>
+
+<!-- ================== English ================== -->
+<div class="panel" id="en">
+<div class="hero">
+<h1>Transforming aesthetic judgment into actionable language</h1>
+<p class="tagline">
+AI Visual Critic analyzes rhythm, visual direction, symbolic density, and contextual structure
+to articulate clearly what works and what requires revision.
+<br><br>
+In an era where simulation is often trusted more than presence,
+this project aims to redefine critical standards of perception.
+<br><br>
+Currently under construction.
+</p>
+</div>
+
+<div class="section">
+<div class="card">
+<strong>Contact</strong><br>
+<a href="mailto:aivisualcritic@gmail.com">aivisualcritic@gmail.com</a>
+</div>
+</div>
+</div>
+
+<!-- ================== Français ================== -->
+<div class="panel" id="fr">
+<div class="hero">
+<h1>Transformer le jugement esthétique en langage opératoire</h1>
+<p class="tagline">
+AI Visual Critic examine le rythme, la trajectoire du regard,
+la densité symbolique et la structure contextuelle afin d’indiquer clairement
+ce qui fonctionne et ce qui doit être révisé.
+<br><br>
+À une époque où la simulation inspire parfois plus de confiance que la présence,
+le projet redéfinit les critères critiques du sensible.
+<br><br>
+Site en construction.
+</p>
+</div>
+
+<div class="section">
+<div class="card">
+<strong>Contact</strong><br>
+<a href="mailto:aivisualcritic@gmail.com">aivisualcritic@gmail.com</a>
+</div>
+</div>
+</div>
+
+<div class="footer">
+© <span id="year"></span> AI Visual Critic
+</div>
+
+</div>
+
+<script>
+const panels = document.querySelectorAll('.panel');
+const buttons = document.querySelectorAll('.lbtn');
+
+function setLang(lang){
+panels.forEach(p => p.classList.remove('active'));
+document.getElementById(lang).classList.add('active');
+
+buttons.forEach(b => b.classList.remove('active'));
+document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
+
+localStorage.setItem('lang', lang);
+}
+
+buttons.forEach(btn=>{
+btn.addEventListener('click',()=>setLang(btn.dataset.lang));
+});
+
+const savedLang = localStorage.getItem('lang') || 'ko';
+setLang(savedLang);
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
