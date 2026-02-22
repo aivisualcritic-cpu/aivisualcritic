@@ -1,11 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>AI Visual Critic</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Visual Critic</title>
+  <meta name="description" content="AI Visual Critic — 큐레이션·비평·프로모션을 하나의 파이프라인으로 묶는 영상/미학 엔진." />
+  <style>
+    :root { --fg:#0b0b0f; --muted:#6b7280; --bg:#ffffff; --card:#f6f7fb; --line:#e5e7eb; }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,Arial,sans-serif;color:var(--fg);background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 0 22px}
+    .brand{font-weight:800;letter-spacing:-.02em}
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-size:13px;color:var(--muted)}
+    .hero{padding:34px 0 18px}
+    h1{font-size:42px;line-height:1.08;margin:0 0 10px;letter-spacing:-.03em}
+    .tagline{font-size:17px;line-height:1.6;color:var(--muted);max-width:720px;margin:0 0 18px}
+    .btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 0}
+    .btn{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:12px;font-weight:600;font-size:14px}
+    .btn.primary{background:var(--fg);color:#fff;border-color:var(--fg)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:26px 0 10px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px}
+    .k{font-weight:800;margin:0 0 6px}
+    .d{margin:0;color:var(--muted);line-height:1.6;font-size:14px}
+    .section{margin:26px 0 0;padding-top:18px;border-top:1px solid var(--line)}
+    .h2{font-size:18px;margin:0 0 10px;letter-spacing:-.02em}
+    .bul{margin:0;padding-left:16px;color:var(--muted);line-height:1.7}
+    .demo{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;justify-content:space-between}
+    .note{color:var(--muted);line-height:1.7;margin:0}
+    .footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;color:var(--muted);font-size:13px}
+    .links{display:flex;gap:14px;flex-wrap:wrap}
+    @media (max-width:860px){ .grid{grid-template-columns:1fr} h1{font-size:34px} }
+  </style>
 </head>
-<body style="text-align:center; margin-top:120px; font-family:Arial;">
-<h1>AI Visual Critic</h1>
-<p>현재 구축중입니다.</p>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">AI Visual Critic</div>
+      <div class="pill">Status: <b style="color:#111">Building</b> · aivisualcritic.com</div>
+    </div>
+
+    <div class="hero">
+      <h1>큐레이션·비평·프로모션을<br/>하나의 미학 엔진으로.</h1>
+      <p class="tagline">
+        AI Visual Critic은 영상/이미지의 감각적 밀도와 메시지 구조를 분석해
+        “왜 좋은가 / 무엇을 강화해야 하는가”를 짧고 명확한 언어로 제안합니다.
+        (현재 프리뷰 버전 구축 중)
+      </p>
+
+      <div class="btns">
+        <a class="btn primary" href="#" onclick="alert('준비 중입니다.');return false;">영상 추천 받기</a>
+        <a class="btn" href="#" onclick="alert('소개서 링크를 붙여넣으면 됩니다.');return false;">프로젝트 소개서(PDF)</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <p class="k">Curate</p>
+        <p class="d">당신의 취향·의도·플랫폼 맥락에 맞춰 “봐야 할 것”을 고릅니다.</p>
+      </div>
+      <div class="card">
+        <p class="k">Critique</p>
+        <p class="d">장면의 리듬, 시선의 동선, 상징의 밀도를 짧은 코멘트로 구조화합니다.</p>
+      </div>
+      <div class="card">
+        <p class="k">Promote</p>
+        <p class="d">홍보 문구·썸네일·쇼츠 구성까지, 전달력을 높이는 제안을 연결합니다.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <p class="h2">Why it matters</p>
+      <ul class="bul">
+        <li>“현존(Presence)”보다 “시뮬레이션(Simulation)”이 더 신뢰받는 시대, 감각의 기준을 다시 설계합니다.</li>
+        <li>데이터가 아니라 ‘미학적 판단’의 언어로, 창작자에게 실행 가능한 선택지를 제공합니다.</li>
+      </ul>
+    </div>
+
+    <div class="section demo">
+      <div>
+        <p class="h2">Demo / Coming Soon</p>
+        <p class="note">
+          현재 구축중입니다.<br/>
+          다음 업데이트: 추천 버튼(간이 폼) + 샘플 코멘트 3종 + 프로젝트 개요 페이지.
+        </p>
+      </div>
+      <div class="card" style="min-width:260px;max-width:360px;flex:1">
+        <p class="k">Contact</p>
+        <p class="d">협업/문의: <a href="mailto:info@simeunlog.com">info@simeunlog.com</a></p>
+        <p class="d" style="margin-top:10px">© <span id="y"></span> AI Visual Critic</p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>Built with GitHub + Vercel</div>
+      <div class="links">
+        <a href="#" onclick="alert('링크를 넣어주세요.');return false;">Instagram</a>
+        <a href="#" onclick="alert('링크를 넣어주세요.');return false;">YouTube</a>
+        <a href="#" onclick="alert('링크를 넣어주세요.');return false;">Press</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
